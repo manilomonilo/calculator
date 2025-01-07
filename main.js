@@ -5,8 +5,12 @@ let equal = document.querySelector(".equals");
 let calculatorNumbers = document.querySelector(".calculator-buttons");
 let buttons = document.querySelectorAll(".button");
 let operators = document.querySelectorAll(".operator")
+let iconButton = document.querySelector(".button")
+
+// switch color theme
 
 function switchToDarkMood() {
+    icon.src = "imgs/sun.svg";
     document.body.style.backgroundColor = "#000";
     calculator.classList.add("calculator-dark");
     icon.classList.add("icon-dark");
@@ -34,6 +38,7 @@ switchMode.addEventListener("click", () => {
     if (localStorage.getItem("theme") === "light") {
         switchToDarkMood();
     } else if (localStorage.getItem("theme") === "dark") {
+        icon.src = "imgs/moon-stars.svg";
         document.body.style.backgroundColor = "#bdbdbd";
         calculator.classList.remove("calculator-dark");
         icon.classList.remove("icon-dark");
@@ -51,3 +56,30 @@ switchMode.addEventListener("click", () => {
 
     }
 });
+
+// calculating
+
+let displayed = document.querySelector(".calculator-display");
+
+function displayElement(element) {
+    displayed.textContent += element.textContent;
+}
+
+buttons.forEach(element => {
+    element.addEventListener("click", () => {
+        if (element.classList.contains("icon-button")) {
+            console.log("icon is here");
+        } else if(element.classList.contains("delete")){
+            return;
+        } else if(element.classList.contains("equals")) {
+            console.log("equals is here")
+        } else if (displayed.textContent === "0") {
+            displayed.textContent = "";
+            displayElement(element);
+        } else {
+            displayElement(element);
+        }
+    });
+});
+
+
